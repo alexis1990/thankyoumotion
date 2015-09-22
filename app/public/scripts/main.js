@@ -7,8 +7,8 @@ bookApp.config(function($routeProvider){
     console.log($routeProvider);
     $routeProvider
         .when("/",{
-            controller: "ListBooksCtrl",
-            templateUrl: "scripts/views/booksView.html"
+            controller: "listBooksCtrl",
+            templateUrl: "views/listBooksView.html"
         });
 
     $routeProvider.otherwise({"redirectTo": "/"});
