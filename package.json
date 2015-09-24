@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "angular": "^1.4.6",
+    "bcrypt": "^0.8.5",
     "gulp": "^3.9.0",
     "gulp-bower": "0.0.10",
     "gulp-sass": "^2.0.4"

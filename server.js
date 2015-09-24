@@ -7,7 +7,8 @@ var app        = express();
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1/myapp');
-var Author     = require('./app/models/author');
+var User     = require('./app/models/authors');
+var Book     = require('./app/models/books');
 
 
 // JSON Parser
@@ -35,31 +36,72 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
 
-//POST
+//POST AUTHORS
 router.route('/authors')
 
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
 
-        var author = new Author();
-        author.name = req.body.name;
+        var testUser = new User();
+        testUser.username = req.body.username;
+        testUser.password = req.body.password;
 
-        // save the bear and check for errors
-        author.save(function(err) {
-            if (err)
-                res.send(err);
+        // fetch user and test password verification
+        User.findOne({ username: testUser.username }, function(err, user) {
+            if (err) throw err;
+            if(user) {
+                user.comparePassword(testUser.password, function (err, isMatch) {
 
-            res.json({ message: 'Author created!' });
+                    if (err) throw err;
+                    res.json(isMatch);
+                });
+            }else{
+                // save user to database
+                testUser.save(function(err) {
+                    if (err) throw err;
+                    res.json({ username: testUser.username, password:testUser.password  });
+                });
+            }
+
         });
 
     })
 
     .get(function(req, res) {
-        Author.find(function(err, authors) {
+        User.find(function(err, authors) {
             if (err)
                 res.send(err);
 
             res.json(authors);
+        });
+    });
+
+
+//POST BOOKS
+router.route('/books')
+
+    // create a bear (accessed at POST http://localhost:8080/api/bears)
+    .post(function(req, res) {
+
+        var book = new Book();
+        book.name = req.body.name;
+
+        // save the bear and check for errors
+        book.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Book created!' });
+        });
+
+    })
+
+    .get(function(req, res) {
+        Book.find(function(err, books) {
+            if (err)
+                res.send(err);
+
+            res.json(books);
         });
     });
 

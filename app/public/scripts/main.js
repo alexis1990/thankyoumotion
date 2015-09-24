@@ -9,6 +9,10 @@ bookApp.config(function($routeProvider){
         .when("/",{
             controller: "listBooksCtrl",
             templateUrl: "views/listBooksView.html"
+        })
+        .when("/signIn",{
+            controller: "signInCtrl",
+            templateUrl: "views/signInView.html"
         });
 
     $routeProvider.otherwise({"redirectTo": "/"});

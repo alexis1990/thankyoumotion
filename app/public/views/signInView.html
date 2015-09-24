@@ -1,0 +1,27 @@
+<div class="container signIn">
+    <div class="col-md-12">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Sign In</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" ng-submit="createUser(mail,password)">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="E-mail" name="mail" type="email" ng-model="mail" autofocus="">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Password" name="password" ng-model="password" type="password" >
+                            </div>
+                            <!-- Change this to a button or input when using this as a form -->
+                            <button class="btn btn-sm btn-success">Login</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+</div>
