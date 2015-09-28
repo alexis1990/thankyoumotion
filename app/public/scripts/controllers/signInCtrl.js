@@ -1,15 +1,10 @@
-bookApp.controller("signInCtrl", function ($scope, apiFactory, $q){
-
-    $scope.createUser = function(mail,password) { // <-- here is you value from the input
+bookApp.controller("signInCtrl", function ($scope, apiFactory){
+    $scope.createUser = function(mail,password) {
         apiFactory.postAuthors(mail,password)
-            .then(
-            function (data) {
-                console.log("data :", data);
-            },
-            function (error) {
-                console.log(error);
-            }
-        );
-        
+            .then(function (response) {
+                console.log("response :", response);
+            }, function (reject) {
+                console.log("reject :", reject);
+            });
     };
 });

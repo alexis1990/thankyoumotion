@@ -49,22 +49,19 @@ router.route('/authors')
         // fetch user and test password verification
         User.findOne({ username: testUser.username }, function(err, user) {
             if (err) throw err;
-            if(user) {
-                user.comparePassword(testUser.password, function (err, isMatch) {
 
+            if(user) {
+                // test a matching password
+                user.comparePassword(testUser.password , function(err, isMatch) {
                     if (err) throw err;
                     res.json(isMatch);
                 });
             }else{
-                // save user to database
-                testUser.save(function(err) {
+                testUser.save(function (err) {
                     if (err) throw err;
-                    res.json({ username: testUser.username, password:testUser.password  });
                 });
             }
-
         });
-
     })
 
     .get(function(req, res) {
@@ -131,7 +128,7 @@ router.route('/authors/:author_id')
                 if (err)
                     res.send(err);
 
-                res.json({ message: 'Bear updated!' });
+                res.json({ message: 'Author updated!' });
             });
 
         });
