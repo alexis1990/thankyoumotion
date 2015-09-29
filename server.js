@@ -97,7 +97,6 @@ router.route('/authenticate')
                     expiresInMinutes: 1440 // expires in 24 hours
                 });
 
-                // return the information including token as JSON
                 res.json({
                     success: true,
                     token: token
@@ -109,7 +108,7 @@ router.route('/authenticate')
     });
 });
 
-// Route middleware to verify a token
+// Route middleware to verify token
 router.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token
@@ -144,7 +143,6 @@ router.use(function(req, res, next) {
 //POST BOOKS
 router.route('/books')
 
-    // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
 
         var book = new Book();
@@ -171,7 +169,6 @@ router.route('/books')
 
 router.route('/authors/:author_id')
 
-    // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
     .get(function(req, res) {
         Author.findById(req.params.author_id, function(err, author) {
             if (err)
@@ -182,15 +179,14 @@ router.route('/authors/:author_id')
 
     .put(function(req, res) {
 
-        // use our bear model to find the bear we want
         Author.findById(req.params.author_id, function(err, author) {
 
             if (err)
                 res.send(err);
 
-            author.name = req.body.name;  // update the bears info
+            author.name = req.body.name;
 
-            // save the bear
+
             author.save(function(err) {
                 if (err)
                     res.send(err);
